@@ -14,8 +14,16 @@ return new class extends Migration
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
             $table->string('rating_status');
-            $table->integer('user_id');
-            $table->integer('product_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')
+                 ->references('id')
+                 ->on('products')
+                 ->onDelete('cascade');
             $table->integer('rating-count');
             $table->longtext('message');
             $table->timestamps();

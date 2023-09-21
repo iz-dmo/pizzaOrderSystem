@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\ChangePasswordRequest;
 
 class AuthController extends Controller
 {
     // direct login page
-
+    // password section
     public function loginPage(){
         return view('login');
     }
@@ -20,9 +22,10 @@ class AuthController extends Controller
 
     public function dashboard(){
         if(Auth::user()->role == 'admin'){
-            return redirect()->route('dashboard');
+            return redirect()->route('admin#home');
         }else{
             return redirect()->route('user#home');
         }
     }
+
 }
